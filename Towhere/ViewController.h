@@ -10,6 +10,8 @@
 
 @interface ViewController : UIViewController
 
+-(IBAction)registerd:(id)sender;      //注册。
+-(IBAction)login:(id)sender;          //登录。
 
 @end
 

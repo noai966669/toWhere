@@ -1,0 +1,51 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++C282205" : {
+
+    },
+    "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++750AF57" : {
+
+    },
+    "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++A76F491" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++C282205" : 0,
+    "36E9D62B61D47DE012B76657512F5730A64EF824+++5EEB8A0" : 0,
+    "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++750AF57" : 0,
+    "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++A76F491" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5109867A-09F9-4C4D-B7AF-89B2460CF041",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++C282205" : "Towhere\/Net\/ASIHTTPRequest\/",
+    "36E9D62B61D47DE012B76657512F5730A64EF824+++5EEB8A0" : "..\/workspace\/ReWork\/3.0%E4%B9%8B%E5%90%8E\/SuperGina",
+    "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++750AF57" : "Towhere\/Net\/ASIHTTPRequest\/",
+    "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++A76F491" : "Towhere\/Net\/Json\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Towhere",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Towhere.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.coding.net\/huawenjie\/SuperGina.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "36E9D62B61D47DE012B76657512F5730A64EF824+++5EEB8A0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/115.29.195.181\/svn\/XMCommon",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++750AF57"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/115.29.195.181\/svn\/XMCommon",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++A76F491"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/115.29.195.181\/svn\/XMCommon",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "ef2bc116-946d-d341-a39b-053a6f7211b0++7924+++C282205"
+    }
+  ]
+}
