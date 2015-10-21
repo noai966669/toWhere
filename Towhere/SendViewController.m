@@ -13,7 +13,7 @@
 #import "ListBean1.h"
 #import "XMUtils.h"
 #import "AppDelegate.h"
-
+#import "MJRefresh.h"
 @interface SendViewController ()
 
 @end
@@ -41,6 +41,19 @@
     appDelegate.companyname = @"";
     appDelegate.weight = @"";
     appDelegate.edit2 = @"";
+
+    tableView1.header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [tableView1.header beginRefreshing];
+        [self loadDataFromNet];
+        [tableView1.header endRefreshing];
+    }];
+  
+//    tableView1.tableView.addLegendHeaderWithRefreshingBlock({[weak self] () -> Void in
+//        //nzz此处写从服务器拉取数据代码
+//        print("开始拉取")
+//        self?.requiredHistoyOfMsg()
+//        print("结束拉取")
+//    })
 }
 
 //*******************************************点击侧滑，手势写在navigation里面

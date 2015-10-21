@@ -13,8 +13,11 @@
 #import "ICSDrawerController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "Towhere-Swift.h"
-#define appKey @"5b2655c71290"
-#define appSecret @"55988074b9a3faadffa6f74cd3ae7845"
+#import "XGPush.h"
+#import "XGSetting.h"
+
+#define appKey1 @"5b2655c71290"
+#define appSecret1 @"55988074b9a3faadffa6f74cd3ae7845"
 
 @interface AppDelegate ()
 
@@ -69,12 +72,69 @@
     // Override point for customization after application launch.
     
     //初始化应用，appKey和appSecret从后台申请得到
-    [SMS_SDK registerApp:appKey
-              withSecret:appSecret];
+    [SMS_SDK registerApp:appKey1
+              withSecret:appSecret1];
     //    创建数据库
     [DatabaseDelivery createDataBasedeliveryHistroy];
     
+    
+    
+    //注册通知
+    //注销之后需要再次注册前的准备
+    [XGPush startApp:2200022728  appKey:@"KEYIA3VQX843I2L"];
+    void (^successCallback)(void) = ^(void){
+        //如果变成需要注册状态
+        if(![XGPush isUnRegisterStatus])
+        {
+            //iOS8注册push方法
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
+            
+            float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
+            if(sysVer < 8){
+                [self registerPush];
+            }
+            else{
+                [self registerPushForIOS8];
+            }
+#else
+            //iOS8之前注册push方法
+            //注册Push服务，注册后才能收到推送
+            [self registerPush];
+#endif
+        }
+    };
+    [XGPush initForReregister:successCallback];
+    
+    
+    //推送反馈回调版本示例
+    void (^successBlock)(void) = ^(void){
+        //成功之后的处理
+        NSLog(@"[XGPush]handleLaunching's successBlock");
+    };
+    
+    void (^errorBlock)(void) = ^(void){
+        //失败之后的处理
+        NSLog(@"[XGPush]handleLaunching's errorBlock");
+    };
+    
+    //角标清0
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    //清除所有通知(包含本地通知)
+    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
+    [XGPush handleLaunching:launchOptions successCallback:successBlock errorCallback:errorBlock];
+    
+    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    //注册设备
+    NSString * deviceTokenStr = [XGPush registerDevice: deviceToken];
+    
+    //打印获取的deviceToken的字符串
+    NSLog(@"deviceTokenStr is %@",deviceTokenStr);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -110,5 +170,102 @@
     }];
     return YES;
 }
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+    //推送反馈(app运行时)
+    [XGPush handleReceiveNotification:userInfo];
+    
+    
+    //回调版本示例
+    /*
+     void (^successBlock)(void) = ^(void){
+     //成功之后的处理
+     NSLog(@"[XGPush]handleReceiveNotification successBlock");
+     };
+     
+     void (^errorBlock)(void) = ^(void){
+     //失败之后的处理
+     NSLog(@"[XGPush]handleReceiveNotification errorBlock");
+     };
+     
+     void (^completion)(void) = ^(void){
+     //失败之后的处理
+     NSLog(@"[xg push completion]userInfo is %@",userInfo);
+     };
+     
+     [XGPush handleReceiveNotification:userInfo successCallback:successBlock errorCallback:errorBlock completion:completion];
+     */
+}
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification{
+    //notification是发送推送时传入的字典信息
+    [XGPush localNotificationAtFrontEnd:notification userInfoKey:@"clockID" userInfoValue:@"myid"];
+    
+    //删除推送列表中的这一条
+    [XGPush delLocalNotification:notification];
+    //[XGPush delLocalNotification:@"clockID" userInfoValue:@"myid"];
+    
+    //清空推送列表
+    //[XGPush clearLocalNotifications];
+}
 
+- (void)registerPushForIOS8{
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
+    
+    //Types
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    
+    //Actions
+    UIMutableUserNotificationAction *acceptAction = [[UIMutableUserNotificationAction alloc] init];
+    
+    acceptAction.identifier = @"ACCEPT_IDENTIFIER";
+    acceptAction.title = @"Accept";
+    
+    acceptAction.activationMode = UIUserNotificationActivationModeForeground;
+    acceptAction.destructive = NO;
+    acceptAction.authenticationRequired = NO;
+    
+    //Categories
+    UIMutableUserNotificationCategory *inviteCategory = [[UIMutableUserNotificationCategory alloc] init];
+    
+    inviteCategory.identifier = @"INVITE_CATEGORY";
+    
+    [inviteCategory setActions:@[acceptAction] forContext:UIUserNotificationActionContextDefault];
+    
+    [inviteCategory setActions:@[acceptAction] forContext:UIUserNotificationActionContextMinimal];
+    
+    //    [acceptAction release];
+    
+    NSSet *categories = [NSSet setWithObjects:inviteCategory, nil];
+    
+    //    [inviteCategory release];
+    
+    
+    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
+    
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+    
+    
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+#endif
+}
+//注册UserNotification成功的回调
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    NSLog(@"注册UserNotification成功的回调");
+    //用户已经允许接收以下类型的推送
+    //UIUserNotificationType allowedTypes = [notificationSettings types];
+    
+}
+//如果deviceToken获取不到会进入此事件
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    
+    NSString *str = [NSString stringWithFormat: @"Error: %@",err];
+    
+    NSLog(@"注册UserNotification失败%@",str);
+    
+}
+
+- (void)registerPush{
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+}
 @end

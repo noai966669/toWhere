@@ -15,22 +15,49 @@
 #import <SMS_SDK/CountryAndAreaCode.h>
 
 @interface PasswordViewController ()
-
+@property (strong, nonatomic) IBOutlet UIButton *btnOfYzm;
+@property NSTimer  *timerShowYzmSec;
 @end
 
 @implementation PasswordViewController
-
+@synthesize timerShowYzmSec;
+static int secYzm=-1;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self  setBtn];
+    if (secYzm>=0){
+        _btnOfYzm.userInteractionEnabled=true;
+        timerShowYzmSec = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeSec) userInfo:nil repeats:true ];
+    }
     // Do any additional setup after loading the view.
 }
+-(void)viewDidDisappear:(BOOL)animated{
+    if (timerShowYzmSec!=nil){
+        [timerShowYzmSec invalidate];
+        timerShowYzmSec=nil;
+    }
 
+}
+-(void)setBtn
+{
+    _btnOfYzm.layer.masksToBounds=true;
+    _btnOfYzm.layer.borderWidth=1;
+    _btnOfYzm.layer.cornerRadius=4;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 228.0 / 255.0, 179.0 / 255.0, 22.0 / 255.0, 1 });
+    [_btnOfYzm.layer setBorderColor:colorref];
+    //(__bridge CGColorRef _Nullable)([UIColor colorWithRed:228.0 / 255.0 green:179.0 / 255.0 blue:22.0 / 255.0 alpha:1]);
+    _btnOfYzm.titleLabel.text=@"获取验证码";
+    _btnOfYzm.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+
+}
 -(IBAction)back:(id)sender{
     UIViewController *next = [[self storyboard]instantiateViewControllerWithIdentifier:@"LoginViewController"];
     [self presentViewController:next animated:NO completion:nil];
 }
 
 -(IBAction)yzm:(id)sender{
+    if(!(secYzm>0)){
     [SMS_SDK getVerificationCodeBySMSWithPhone:phone.text
                                           zone:@"86"
                                         result:^(SMS_SDKError *error)
@@ -48,6 +75,13 @@
              
              [warning2 show];
              NSLog(@"验证码发送成功");
+             if (timerShowYzmSec!=nil){
+                 [timerShowYzmSec invalidate];
+                 timerShowYzmSec=nil;
+             }
+             _btnOfYzm.userInteractionEnabled=false;
+             timerShowYzmSec = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeSec) userInfo:nil repeats:true ];
+             secYzm=60;
          }
          
          else
@@ -61,9 +95,21 @@
          }
          
      }];
+    }
+}
+-(void)changeSec{
+    if (secYzm){
+        _btnOfYzm.titleLabel.text=[NSString stringWithFormat:@"%d秒", secYzm--];
+    }else{
+        if (timerShowYzmSec!=nil){
+            [timerShowYzmSec invalidate];
+            timerShowYzmSec=nil;
+        }
+        _btnOfYzm.titleLabel.text=@"获取验证码";
+        _btnOfYzm.userInteractionEnabled=true;
+    }
     
 }
-
 -(IBAction)tijiao:(id)sender{
     [SMS_SDK commitVerifyCode:yanzhengma.text result:^(enum SMS_ResponseState state) {
         if (1 == state)
