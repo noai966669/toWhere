@@ -40,7 +40,7 @@ static int databaseIsReady=0;
     }
 
 }
-//type值的是插入数据的类型，0表示二进制，1表示非二进制
+//type值的是插入删除数据的类型，0表示二进制，1表示非二进制
 //插入数据操作  返回2 表示成功
 -(int)getR3:(NSString *)upsql :(NSMutableArray *)BindDate :(NSArray *)type{
     if(!databaseIsReady){

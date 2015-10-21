@@ -4,7 +4,5 @@
 
 #import "databaseGet.h"
 #import "MyKeyChainHelper.h"
-#import "HttpClient.h"
 #import "helpFromOc.h"
 #import "ListBean1.h"
-//	上传图片

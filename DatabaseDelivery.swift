@@ -33,17 +33,26 @@ func getNameByCode(code:String)->String{
 
 class DatabaseDelivery: NSObject {
     
-       
+    
     
     static var KEY_USERNAME = "com.company.app.username"
     static var KEY_PASSWORD = "com.company.app.password"
     
     class func createDataBasedeliveryHistroy()->Int32{
         let con1 = databaseGet()
-        let sql1 = "CREATE TABLE if not exists deliveryHistroy (number Text PRIMARY KEY,userId Text,time Text,code Text)"
+        let sql1 = "CREATE TABLE if not exists deliveryHistroy (number Text,userId Text,time Text,code Text,PRIMARY KEY(userId,number))"
         let binddata1=NSMutableArray()
         let types1=[]
         return con1.getR3(sql1, binddata1, types1 as [AnyObject])
+    }
+    class func deleteDeliveryHistroyByUseridAndNumber(userId:String,number:String)->Int32{
+        let con1 = databaseGet()
+        let sql1 = "delete from  deliveryHistroy where userid=? and number=?"
+        let binddata1=NSMutableArray()
+        binddata1.addObject("\(userId)")
+        binddata1.addObject("\(number)")
+        let types1=[ NSNumber(int: 1),NSNumber(int: 1)]
+        return con1.getR3(sql1, binddata1, types1)
     }
     class func getDeliveryHistroy()->[MDeliveryHistory]{
         let con1 = databaseGet()
@@ -56,9 +65,9 @@ class DatabaseDelivery: NSObject {
         if r1InNSMutableArray.count>0{
             var arrMDeliveryHistory:[MDeliveryHistory]=[]
             if r1InNSMutableArray.count>0{
-            for i in 0...r1InNSMutableArray.count/4-1{
-                arrMDeliveryHistory.append(MDeliveryHistory().initMDeliveryHistory(r1InNSMutableArray[4*i+0] as! String, aTime: r1InNSMutableArray[4*i+2] as! String, aCode: r1InNSMutableArray[4*i+3] as! String))
-            }
+                for i in 0...r1InNSMutableArray.count/4-1{
+                    arrMDeliveryHistory.append(MDeliveryHistory().initMDeliveryHistory(r1InNSMutableArray[4*i+0] as! String, aTime: r1InNSMutableArray[4*i+2] as! String, aCode: r1InNSMutableArray[4*i+3] as! String))
+                }
             }
             return arrMDeliveryHistory
         }else{

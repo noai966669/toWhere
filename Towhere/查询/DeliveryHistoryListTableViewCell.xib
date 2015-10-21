@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="DeliveryHistoryListTableViewCell" customModule="Towhere" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="圆通快递 012398908102384089012" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCj-RE-kZd">
+                        <rect key="frame" x="96" y="16" width="216" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="oz4-Wi-HVt"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.91764705882352937" green="0.74509803921568629" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-01-10 11：11：11" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZj-5S-PQN">
+                        <rect key="frame" x="93" y="45" width="219" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="23" id="j1V-IB-52H"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shunfeng.png" translatesAutoresizingMaskIntoConstraints="NO" id="2a9-Sg-6Yg">
+                        <rect key="frame" x="21" y="22" width="36" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="36" id="7vS-Fr-cI9"/>
+                            <constraint firstAttribute="height" constant="36" id="LKy-Yq-ScX"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="PCj-RE-kZd" firstAttribute="leading" secondItem="2a9-Sg-6Yg" secondAttribute="trailing" constant="39" id="KDB-sl-7hl"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="mZj-5S-PQN" secondAttribute="bottom" constant="3.5" id="L2G-KY-oHR"/>
+                    <constraint firstItem="PCj-RE-kZd" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="S6T-m1-kuq"/>
+                    <constraint firstItem="2a9-Sg-6Yg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Vhj-tU-MyI"/>
+                    <constraint firstItem="2a9-Sg-6Yg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="13" id="fFi-je-yjc"/>
+                    <constraint firstItem="mZj-5S-PQN" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="g4o-He-0R3"/>
+                    <constraint firstItem="PCj-RE-kZd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="rBQ-dn-q3y"/>
+                    <constraint firstItem="mZj-5S-PQN" firstAttribute="leading" secondItem="2a9-Sg-6Yg" secondAttribute="trailing" constant="36" id="sEE-US-5jo"/>
+                    <constraint firstItem="mZj-5S-PQN" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="wGa-9J-626"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="g4o-He-0R3"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="detail" destination="PCj-RE-kZd" id="YOH-hA-KaD"/>
+                <outlet property="img" destination="2a9-Sg-6Yg" id="as8-8v-gDz"/>
+                <outlet property="time" destination="mZj-5S-PQN" id="xUO-Og-P3A"/>
+            </connections>
+            <point key="canvasLocation" x="280" y="210"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="shunfeng.png" width="72" height="72"/>
+    </resources>
+</document>
