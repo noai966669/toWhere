@@ -15,14 +15,18 @@
 #import  "Towhere-Swift.h"
 
 @interface QueryViewController ()
+@property (strong, nonatomic) IBOutlet UIButton *portraitImageView;
 
 @end
 
 @implementation QueryViewController
-
+@synthesize portraitImageView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    portraitImageView.layer.masksToBounds=true;
+    portraitImageView.layer.cornerRadius=portraitImageView.frame.size.width/2;
+    [portraitImageView setImage:[DatabaseDelivery getUserPortrait] forState:UIControlStateNormal];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     if ([appDelegate.back isEqualToString:@"1"]) {
         comname.text = appDelegate.comname;

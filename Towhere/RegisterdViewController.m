@@ -19,22 +19,65 @@
 @interface RegisterdViewController (){
     NSString *message;
 }
-
+@property (strong, nonatomic) IBOutlet UIButton *btnOfYzm;
+@property NSTimer  *timerShowYzmSec;
+@property int secYzm;
 @end
 
 @implementation RegisterdViewController
 @synthesize university;
-
+@synthesize timerShowYzmSec;
+@synthesize secYzm;
+//-(void)viewDidDisappear:(BOOL)animated{
+//    
+//    if (timerShowYzmSec!=nil){
+//        [timerShowYzmSec invalidate];
+//        timerShowYzmSec=nil;
+//    }
+//    
+//}
+-(void)setBtn
+{
+    _btnOfYzm.layer.masksToBounds=true;
+    _btnOfYzm.layer.borderWidth=1;
+    _btnOfYzm.layer.cornerRadius=4;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 228.0 / 255.0, 179.0 / 255.0, 22.0 / 255.0, 1 });
+    [_btnOfYzm.layer setBorderColor:colorref];
+    //(__bridge CGColorRef _Nullable)([UIColor colorWithRed:228.0 / 255.0 green:179.0 / 255.0 blue:22.0 / 255.0 alpha:1]);
+    _btnOfYzm.titleLabel.text=@"获取验证码";
+    _btnOfYzm.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    
+}
+-(void)changeSec{
+    if (secYzm){
+        _btnOfYzm.titleLabel.text=[NSString stringWithFormat:@"     %d秒", secYzm--];
+    }else{
+        if (timerShowYzmSec!=nil){
+            [timerShowYzmSec invalidate];
+            timerShowYzmSec=nil;
+        }
+        _btnOfYzm.titleLabel.text=@"获取验证码";
+        _btnOfYzm.userInteractionEnabled=true;
+    }
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    secYzm=-1;
+
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.login = @"2";  //修改学校用到。2-说明未登录。
     
     universityName.text = university.name;
     universityName.enabled = NO;
     NSLog(@"uid==%@",university.uid);
+    [self  setBtn];
+//    if (secYzm>=0){
+//        _btnOfYzm.userInteractionEnabled=true;
+//        timerShowYzmSec = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeSec) userInfo:nil repeats:true ];
+//    }
 }
 
 -(IBAction)back:(id)sender{
@@ -48,36 +91,45 @@
 }
 
 -(IBAction)huoqu:(id)sender{
-    [SMS_SDK getVerificationCodeBySMSWithPhone:iphone.text
-                                          zone:@"86"
-                                        result:^(SMS_SDKError *error)
-     
-     {
-         if (!error)
+    if(!(secYzm>0)){
+        [SMS_SDK getVerificationCodeBySMSWithPhone:iphone.text
+                                              zone:@"86"
+                                            result:^(SMS_SDKError *error)
+         
          {
-             UIAlertView *warning2;
-             warning2 = [[UIAlertView alloc]
-                         initWithTitle:@"提醒"
-                         message:@"验证码发送成功"
-                         delegate:self
-                         cancelButtonTitle:@"确定"
-                         otherButtonTitles: nil];
+             if (!error)
+             {
+                 UIAlertView *warning2;
+                 warning2 = [[UIAlertView alloc]
+                             initWithTitle:@"提醒"
+                             message:@"验证码发送成功"
+                             delegate:self
+                             cancelButtonTitle:@"确定"
+                             otherButtonTitles: nil];
+                 
+                 [warning2 show];
+                 NSLog(@"验证码发送成功");
+                 if (timerShowYzmSec!=nil){
+                     [timerShowYzmSec invalidate];
+                     timerShowYzmSec=nil;
+                 }
+                 _btnOfYzm.userInteractionEnabled=false;
+                 timerShowYzmSec = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeSec) userInfo:nil repeats:true ];
+                 secYzm=60;
+             }
              
-             [warning2 show];
-             NSLog(@"验证码发送成功");
-         }
-         
-         else
-         {
-             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"验证码发送失败", nil)
-                                                             message:[NSString stringWithFormat:@"状态码：%zi ,错误描述：%@",error.errorCode,error.errorDescription]
-                                                            delegate:self
-                                                   cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                                                   otherButtonTitles:nil, nil];
-             [alert show];
-         }
-         
-     }];
+             else
+             {
+                 UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"验证码发送失败", nil)
+                                                                 message:[NSString stringWithFormat:@"状态码：%zi ,错误描述：%@",error.errorCode,error.errorDescription]
+                                                                delegate:self
+                                                       cancelButtonTitle:NSLocalizedString(@"确定", nil)
+                                                       otherButtonTitles:nil, nil];
+                 [alert show];
+             }
+             
+         }];
+    }
 }
 
 -(IBAction)registerd:(id)sender{
@@ -180,6 +232,9 @@
                 otherButtonTitles: nil];
     
     [warning3 show];
+    
+    UIViewController *next = [[self storyboard]instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    [self presentViewController:next animated:NO completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

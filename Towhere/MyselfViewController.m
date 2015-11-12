@@ -7,15 +7,20 @@
 //
 
 #import "MyselfViewController.h"
-
+#import "Towhere-Swift.h"
+#import "UMSocial.h"
 @interface MyselfViewController ()
+@property (strong, nonatomic) IBOutlet UIButton *btnPortrait;
 
 @end
 
 @implementation MyselfViewController
-
+@synthesize btnPortrait;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    btnPortrait.layer.masksToBounds=true;
+    btnPortrait.layer.cornerRadius=btnPortrait.frame.size.width/2;
+    [btnPortrait setImage:[DatabaseDelivery getUserPortrait] forState:UIControlStateNormal];
     // Do any additional setup after loading the view.
 }
 
@@ -40,6 +45,27 @@
 }
 
 -(IBAction)recommend:(id)sender{
+    
+
+    [UMSocialData defaultData].extConfig.wechatFavoriteData.title=@"快递到了";
+    
+    [UMSocialData defaultData].extConfig.sinaData.shareText=@"为了让校园物流更高效，请使用快递到了";
+
+    [UMSocialData defaultData].extConfig.wechatSessionData.title=@"快递到了";
+    [UMSocialData defaultData].extConfig.wechatSessionData.shareText=@"为了让校园物流更高效，请使用快递到了";
+    
+    [UMSocialData defaultData].extConfig.wechatTimelineData.title=@"快递到了";
+    [UMSocialData defaultData].extConfig.wechatTimelineData.shareText=@"为了让校园物流更高效，请使用快递到了";
+    
+    [UMSocialData defaultData].extConfig.emailData.title=@"快递到了";
+    
+    [UMSocialSnsService presentSnsIconSheetView:self.parentViewController
+                                         appKey:@"5640c788e0f55a42040048bd"
+                                      shareText:@"为了让校园物流更高效，请使用快递到了"
+                                     shareImage:[UIImage imageNamed:@"logo-app108.png"]
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,UMShareToEmail,UMShareToSms,nil]
+                                       delegate:nil];
+    
     
 }
 

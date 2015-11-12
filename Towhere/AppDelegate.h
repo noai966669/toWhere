@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "HttpClient.h"
+@interface AppDelegate : UIResponder <UIApplicationDelegate,DataLoadStateDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic , retain) NSString *deviceTokenStr;       //设备token。
 @property (nonatomic , retain) NSString *token;       //区分不同用户的标准。
 @property (nonatomic , retain) NSString *waitsendID;  //待寄快递信息ID。
 @property (nonatomic , retain) NSString *addname;     //收件人姓名。

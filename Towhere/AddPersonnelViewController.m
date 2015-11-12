@@ -90,7 +90,7 @@
         http.needTipsNetError = YES;
         [http LoadDataFromNet:strPageUrl code:HttpRequestPathForActivityList];
     }
-    else if ([appDelegate.personnel isEqualToString:@"2"]&& n!=0 ){
+    else if ([appDelegate.personnel isEqualToString:@"2"]){
         NSString *strPageUrl = [NSString stringWithFormat:@"http://120.26.74.234/index.php?c=postaddress&a=add&token=%@&phone=%@&name=%@&address=%@",appDelegate.token,phone.text,a,b];
         NSLog(@"token==%@",appDelegate.token);
         

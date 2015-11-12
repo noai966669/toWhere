@@ -13,10 +13,12 @@
 #import "XMUtils.h"
 #import "ListBean1.h"
 #import "AppDelegate.h"
-
+#import "MJRefresh.h"
+#import "Towhere-SWIFT.h"
 @interface AlreadySendViewController (){
     int a;
 }
+@property (strong, nonatomic) IBOutlet UIButton *btnPortrait;
 
 @end
 
@@ -24,10 +26,18 @@
 @synthesize tableView1;
 @synthesize mutarrDataList = _mutarrDataList;
 @synthesize myAlreadyTwoViewController;
-
+@synthesize btnPortrait;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    btnPortrait.layer.masksToBounds=true;
+    btnPortrait.layer.cornerRadius=btnPortrait.frame.size.width/2;
+    [btnPortrait setImage:[DatabaseDelivery getUserPortrait] forState:UIControlStateNormal];
     // Do any additional setup after loading the view.
+    tableView1.header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [tableView1.header beginRefreshing];
+        [self loadDataFromNet];
+        [tableView1.header endRefreshing];
+    }];
     [self loadDataFromNet];
 }
 

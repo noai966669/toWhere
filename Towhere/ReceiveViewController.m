@@ -14,10 +14,11 @@
 #import "XMUtils.h"
 #import "AppDelegate.h"
 #import "NavigationController.h"
-
+#import "Towhere-Swift.h"
 @interface ReceiveViewController (){
     int a;
 }
+@property (strong, nonatomic) IBOutlet UIButton *portraitImageView;
 
 @end
 
@@ -25,12 +26,16 @@
 @synthesize tableView1;
 @synthesize mutarrDataList = _mutarrDataList;
 @synthesize myReceiveDetailViewController;
-
+@synthesize portraitImageView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    portraitImageView.layer.masksToBounds=true;
+    portraitImageView.layer.cornerRadius=portraitImageView.frame.size.width/2;
+
+    [portraitImageView setImage:[DatabaseDelivery getUserPortrait] forState:UIControlStateNormal];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.cellhight = @"1";
     a=0;

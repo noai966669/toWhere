@@ -16,19 +16,21 @@
 
 @interface PasswordViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *btnOfYzm;
+@property int secYzm;
 @property NSTimer  *timerShowYzmSec;
 @end
 
 @implementation PasswordViewController
 @synthesize timerShowYzmSec;
-static int secYzm=-1;
+@synthesize secYzm;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self  setBtn];
-    if (secYzm>=0){
-        _btnOfYzm.userInteractionEnabled=true;
-        timerShowYzmSec = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeSec) userInfo:nil repeats:true ];
-    }
+    secYzm=-1;
+//    if (secYzm>=0){
+//        _btnOfYzm.userInteractionEnabled=true;
+//        timerShowYzmSec = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeSec) userInfo:nil repeats:true ];
+//    }
     // Do any additional setup after loading the view.
 }
 -(void)viewDidDisappear:(BOOL)animated{
@@ -48,7 +50,7 @@ static int secYzm=-1;
     [_btnOfYzm.layer setBorderColor:colorref];
     //(__bridge CGColorRef _Nullable)([UIColor colorWithRed:228.0 / 255.0 green:179.0 / 255.0 blue:22.0 / 255.0 alpha:1]);
     _btnOfYzm.titleLabel.text=@"获取验证码";
-    _btnOfYzm.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    _btnOfYzm.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 
 }
 -(IBAction)back:(id)sender{
@@ -99,7 +101,7 @@ static int secYzm=-1;
 }
 -(void)changeSec{
     if (secYzm){
-        _btnOfYzm.titleLabel.text=[NSString stringWithFormat:@"%d秒", secYzm--];
+        _btnOfYzm.titleLabel.text=[NSString stringWithFormat:@"     %d秒", secYzm--];
     }else{
         if (timerShowYzmSec!=nil){
             [timerShowYzmSec invalidate];

@@ -10,7 +10,8 @@
 #import "AppDelegate.h"
 #import "SBJsonParser.h"
 #import "XMUtils.h"
-
+#import "MyKeyChainHelper.h"
+#import "Towhere-Swift.h"
 #define ORIGINAL_MAX_WIDTH 640.0f
 
 @interface MineViewController ()
@@ -30,7 +31,17 @@
     
     //头像。
     [self.view addSubview:self.portraitImageView];
-    [self loadPortrait];
+    
+    _portraitImageView.layer.masksToBounds=true;
+    _portraitImageView.layer.cornerRadius=_portraitImageView.frame.size.width/2;
+    
+    _portraitImageView.layer.cornerRadius = _portraitImageView.frame.size.width/2;
+    
+    _portraitImageView.image=[DatabaseDelivery getUserPortrait];
+    
+    
+
+//    [self loadPortrait];
     
     [self loadDataFromNet];
 }
@@ -145,6 +156,8 @@
         UIImage *protraitImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:portraitUrl]];
         dispatch_sync(dispatch_get_main_queue(), ^{
             self.portraitImageView.image = protraitImg;
+            NSData *imgData=UIImageJPEGRepresentation(protraitImg, 1.0);
+            [DatabaseDelivery saveUserPortrait:imgData];
         });
     });
 }
@@ -161,6 +174,7 @@
 #pragma mark VPImageCropperDelegate
 - (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
     self.portraitImageView.image = editedImage;
+    [DatabaseDelivery saveUserPortrait:UIImageJPEGRepresentation(editedImage,1.0)];
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
         // TO DO
     }];

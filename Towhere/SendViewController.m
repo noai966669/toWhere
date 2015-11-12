@@ -14,7 +14,9 @@
 #import "XMUtils.h"
 #import "AppDelegate.h"
 #import "MJRefresh.h"
+#import "Towhere-Swift.h"
 @interface SendViewController ()
+@property (strong, nonatomic) IBOutlet UIButton *btnPortrait;
 
 @end
 
@@ -22,7 +24,7 @@
 @synthesize tableView1;
 @synthesize mutarrDataList = _mutarrDataList;
 @synthesize myWaitSendViewController;
-
+@synthesize btnPortrait;
 - (void)loadView {
     
     [super loadView];
@@ -31,6 +33,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    btnPortrait.layer.masksToBounds=true;
+    btnPortrait.layer.cornerRadius=btnPortrait.frame.size.width/2;
+
+    [btnPortrait setImage:[DatabaseDelivery getUserPortrait] forState:UIControlStateNormal];
     // Do any additional setup after loading the view.
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.addcityid = @"";

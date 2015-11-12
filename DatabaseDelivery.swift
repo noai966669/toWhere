@@ -88,4 +88,18 @@ class DatabaseDelivery: NSObject {
             con1.getR3(sql1, binddata1, types1)
         }
     }
+    class func saveUserPortrait(imgData:NSData){
+            var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+            let imgPath=paths[0]+"/\(MyKeyChainHelper.getUserNameWithService(KEY_USERNAME))"
+            imgData.writeToFile(imgPath, atomically: true)
+    }
+    class func getUserPortrait()->UIImage{
+            var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+            let imgPath=paths[0]+"/\(MyKeyChainHelper.getUserNameWithService(KEY_USERNAME))"
+            let imgInData = NSData.dataWithContentsOfMappedFile(imgPath)
+            if (imgInData != nil){
+             return  UIImage(data: imgInData! as! NSData)!
+            }
+            return UIImage(named: "用户")!
+    }
 }

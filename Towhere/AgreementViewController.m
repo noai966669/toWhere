@@ -21,8 +21,9 @@
 }
 
 -(IBAction)back:(id)sender{
-    UIViewController *next = [[self storyboard]instantiateViewControllerWithIdentifier:@"RegisterdViewController"];
-    [self presentViewController:next animated:NO completion:nil];
+//    UIViewController *next = [[self storyboard]instantiateViewControllerWithIdentifier:@"RegisterdViewController"];
+//    [self presentViewController:next animated:NO completion:nil];
+       [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

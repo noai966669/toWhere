@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Towhere/QueryViewController.m"
-            timestampString = "467058778.215784"
+            timestampString = "467353139.495474"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "-decodingJson:"
             landmarkType = "5">
          </BreakpointContent>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DatabaseDelivery.swift"
-            timestampString = "467059574.639426"
+            filePath = "Towhere/RegisterdViewController.m"
+            timestampString = "467267058.909434"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "getDeliveryHistroy()"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "-huoqu:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DatabaseDelivery.swift"
-            timestampString = "467059574.639426"
+            filePath = "&#x4fa7;&#x6ed1;/ICSDrawerController.m"
+            timestampString = "468865401.596823"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "getDeliveryHistroy()"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
+            landmarkName = "-animateClosing"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ICSDrawerController animateClosing]"
+                  moduleName = "Towhere"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ai966669/workspace/xian/Towhere/%E4%BE%A7%E6%BB%91/ICSDrawerController.m"
+                  timestampString = "468866953.852026"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "343"
+                  endingLineNumber = "343"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ICSDrawerController animateClosing]"
+                  moduleName = "Towhere"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ai966669/workspace/xian/Towhere/%E4%BE%A7%E6%BB%91/ICSDrawerController.m"
+                  timestampString = "468866953.852253"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "343"
+                  endingLineNumber = "343"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x4fa7;&#x6ed1;/ICSDrawerController.m"
+            timestampString = "468865438.282247"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "-tapGestureRecognized:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +121,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DatabaseDelivery.swift"
-            timestampString = "467059640.374525"
+            filePath = "Towhere/ReceiveViewController.m"
+            timestampString = "468865768.671434"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "deleteDeliveryHistroyByUseridAndNumber(_:number:)"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-myself:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

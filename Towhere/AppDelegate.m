@@ -15,7 +15,11 @@
 #import "Towhere-Swift.h"
 #import "XGPush.h"
 #import "XGSetting.h"
-
+#import "SBJsonParser.h"
+#import "XMUtils.h"
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
 #define appKey1 @"5b2655c71290"
 #define appSecret1 @"55988074b9a3faadffa6f74cd3ae7845"
 
@@ -24,6 +28,7 @@
 @end
 
 @implementation AppDelegate
+@synthesize deviceTokenStr;
 @synthesize token;
 @synthesize waitsendID;
 @synthesize addname;
@@ -77,11 +82,16 @@
     //    创建数据库
     [DatabaseDelivery createDataBasedeliveryHistroy];
     
-    
+    //友盟初始化
+    [UMSocialData setAppKey:@"5640c788e0f55a42040048bd"];
+//    wx分享初始化
+    [UMSocialWechatHandler setWXAppId:@"wx640c335963e22b33" appSecret:@"5640c788e0f55a42040048bd" url:@"http://www.nb-hb.cn/daole"];
+//    qq分享初始化
+    [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.nb-hb.cn/daole"];
     
     //注册通知
     //注销之后需要再次注册前的准备
-    [XGPush startApp:2200022728  appKey:@"KEYIA3VQX843I2L"];
+    [XGPush startApp:2200156954  appKey:@"IR126KVYW68F"];
     void (^successCallback)(void) = ^(void){
         //如果变成需要注册状态
         if(![XGPush isUnRegisterStatus])
@@ -135,6 +145,7 @@
     
     //打印获取的deviceToken的字符串
     NSLog(@"deviceTokenStr is %@",deviceTokenStr);
+    self.deviceTokenStr=deviceTokenStr;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -168,7 +179,13 @@
     [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
         NSLog(@"result = %@",resultDic);
     }];
-    return YES;
+//    return YES;
+    
+       return  [UMSocialSnsService handleOpenURL:url];
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [UMSocialSnsService handleOpenURL:url];
 }
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
@@ -268,4 +285,49 @@
 - (void)registerPush{
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
 }
+//- (void)postToken:(NSString*)deviceTokenStr{
+//    
+//    NSString *userId=[MyKeyChainHelper getPasswordWithService:@"com.company.app.userId"];
+////    此处需要注意名字，tokenUser是
+//    if (![userId  isEqual: @""]){
+//        NSString *tokenUser=[[NSUserDefaults standardUserDefaults] valueForKey:@"token"];
+//        NSString *strPageUrl = [NSString stringWithFormat:@"http://120.26.74.234/index.php?c=user&a=changeuserid&token=%@&userid=%@&environment=2",tokenUser,deviceTokenStr];
+//        HttpClient *http = [HttpClient httpClientWithDelegate:self];
+//        http.needTipsNetError = YES;
+//        [http LoadDataFromNet:strPageUrl code:HttpRequestPathForActivityList];
+//    }
+//}
+//
+//- (void)dataStartLoad:(HttpRequestPath)requestPath
+//{
+//    //    [XMUtils hiddenTips:self.view];
+//    
+//    if (requestPath == HttpRequestPathForActivityList)
+//    {
+//        
+//        //        [XMUtils addWaitingView:self.view withText:@"加载中，请稍候..."];
+//    }
+//}
+//- (void)dataLoadDone:(HttpRequestPath)requestPath withObj:(NSString*)jsonData
+//{
+//    if (requestPath == HttpRequestPathForActivityList)
+//    {
+//        [self decodingJson:jsonData];
+//    }
+//}
+//
+//- (void)decodingJson:(NSString *)jsonContent
+//{
+////    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    
+//    NSLog(@"%@",jsonContent);
+//    if (jsonContent.length > 0)
+//    {
+//        SBJsonParser *pause = [[SBJsonParser alloc] init];
+//        NSDictionary *dicData = [pause objectWithString:jsonContent];
+//        NSDictionary *array = [dicData objectForKey:@"result"];
+////        appDelegate.token = [array objectForKey:@"token"];
+////        NSLog(@"token===%@",appDelegate.token);
+//    }
+//}
 @end

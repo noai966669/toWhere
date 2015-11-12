@@ -232,7 +232,10 @@
     
     [self viewDidLoad];
     [self viewDidLoad];
+    [self.addressee setBackgroundImage:[UIImage imageNamed:@"收件人11.png"] forState:UIControlStateNormal];
+    [self.post setBackgroundImage:[UIImage imageNamed:@"寄件人22.png"] forState:UIControlStateNormal];
     
+
 }
 
 

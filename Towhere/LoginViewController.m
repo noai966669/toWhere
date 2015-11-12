@@ -15,18 +15,19 @@
 
 
 @interface LoginViewController ()
-
+@property int isPostToken;
 @end
 
 @implementation LoginViewController
 @synthesize mutarrDataList = _mutarrDataList;
-
+@synthesize isPostToken;
 NSString * const KEY_USERNAME = @"com.company.app.username";
 NSString * const KEY_PASSWORD = @"com.company.app.password";
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isPostToken=false;
     // Do any additional setup after loading the view.
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -34,12 +35,12 @@ NSString * const KEY_PASSWORD = @"com.company.app.password";
     //调用记住的密码。
     phone.text = [MyKeyChainHelper getUserNameWithService:KEY_USERNAME];
     password.text = [MyKeyChainHelper getPasswordWithService:KEY_PASSWORD];
-
- //   [MyKeyChainHelper deleteWithUserNameService:KEY_USERNAME psaawordService:KEY_PASSWORD];
     
-
+    //   [MyKeyChainHelper deleteWithUserNameService:KEY_USERNAME psaawordService:KEY_PASSWORD];
+    
+    
     int a =[phone.text intValue];
-        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
     NSLog(@"%@",
           [[NSUserDefaults standardUserDefaults] valueForKey:@"needAutoLogin"]);
     if ((a != 0&&[appDelegate.logout isEqualToString:@"0"])&&([defaults integerForKey:@"needAutoLogin"])) {
@@ -60,7 +61,7 @@ NSString * const KEY_PASSWORD = @"com.company.app.password";
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"needAutoLogin"];
     
     [self presentViewController:next animated:NO completion:nil];
-
+    
 }
 
 -(IBAction)password:(id)sender{
@@ -69,6 +70,7 @@ NSString * const KEY_PASSWORD = @"com.company.app.password";
 }
 
 -(IBAction)login:(id)sender{
+    isPostToken=false;
     if ([phone.text isEqualToString:@""] || [password.text isEqualToString:@""] || phone.text == nil || password.text == nil) {
         UIAlertView *b = [[UIAlertView alloc]initWithTitle:@"登入失败"
                                                    message:@"用户名和密码不能为空！"
@@ -100,10 +102,11 @@ NSString * const KEY_PASSWORD = @"com.company.app.password";
     
     NSString *strPageUrl = [NSString stringWithFormat:@"http://120.26.74.234/index.php?c=user&a=login&phone=%@&password=%@",phone.text,password.text];
     NSLog(@"http://121.42.12.154/index.php?c=user&a=login&phone=%@&password=%@",phone.text,password.text);
-        
+    
     HttpClient *http = [HttpClient httpClientWithDelegate:self];
     http.needTipsNetError = YES;
     [http LoadDataFromNet:strPageUrl code:HttpRequestPathForActivityList];
+    
 }
 
 - (void)dataStartLoad:(HttpRequestPath)requestPath
@@ -124,52 +127,76 @@ NSString * const KEY_PASSWORD = @"com.company.app.password";
         [XMUtils removeWaitingView:self.view];
     }
 }
-
+- (void)postToken{
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    //    此处需要注意名字，tokenUser是
+    if (![appDelegate.deviceTokenStr  isEqual: @""] && ![appDelegate.token  isEqual: @""]){
+        NSString *strPageUrl = [NSString stringWithFormat:@"http://120.26.74.234/index.php?c=user&a=changeuserid&token=%@&userid=%@&environment=2",appDelegate.token,appDelegate.deviceTokenStr];
+        HttpClient *http = [HttpClient httpClientWithDelegate:self];
+        http.needTipsNetError = YES;
+        [http LoadDataFromNet:strPageUrl code:HttpRequestPathForActivityList];
+    }
+}
 - (void)decodingJson:(NSString *)jsonContent
 {
-    NSLog(@"%@",jsonContent);
-    if (jsonContent.length > 0)
-    {
-        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        SBJsonParser *pause = [[SBJsonParser alloc] init];
-        NSDictionary *dicData = [pause objectWithString:jsonContent];
-        NSDictionary *item = [dicData objectForKey:@"result"];
-        appDelegate.token = [item objectForKey:@"token"];
-        
-        NSLog(@"token====%@",appDelegate.token);
-
-        
-        if ([dicData objectForKey:@"result"]==nil || [[dicData objectForKey:@"result"] isKindOfClass:[NSNull class]]) {
+    if (!isPostToken){
+        NSLog(@"%@",jsonContent);
+        if (jsonContent.length > 0)
+        {
+            AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            SBJsonParser *pause = [[SBJsonParser alloc] init];
+            NSDictionary *dicData = [pause objectWithString:jsonContent];
+            NSDictionary *item = [dicData objectForKey:@"result"];
+            appDelegate.token = [item objectForKey:@"token"];
             
-            UIAlertView *b = [[UIAlertView alloc]initWithTitle:@"登入失败"
-                                                       message:@"用户名或者密码错误。"
-                                                      delegate:nil
-                                             cancelButtonTitle:@"重新登入"
-                                             otherButtonTitles: nil];
-            [b show];
-            //将needAutoLogin设置成0，登陆失败
-            [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"needAutoLogin"];
+            NSLog(@"token====%@",appDelegate.token);
             
+            
+            if ([dicData objectForKey:@"result"]==nil || [[dicData objectForKey:@"result"] isKindOfClass:[NSNull class]]) {
+                
+                UIAlertView *b = [[UIAlertView alloc]initWithTitle:@"登入失败"
+                                                           message:@"用户名或者密码错误。"
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"重新登入"
+                                                 otherButtonTitles: nil];
+                [b show];
+                //将needAutoLogin设置成0，登陆失败
+                [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"needAutoLogin"];
+                
+            }
+            else
+            {
+                [self performSegueWithIdentifier:@"login" sender:self];
+                //将needAutoLogin设置成1
+                [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"needAutoLogin"];
+                //登陆成功修改设备token
+                isPostToken=true;
+                [self postToken];
+                if (![appDelegate.token isEqual:@""]){
+                    [[NSUserDefaults standardUserDefaults] setObject:appDelegate.token forKey:@"token"];
+                }
+            }
         }
         else
         {
-            [self performSegueWithIdentifier:@"login" sender:self];
-            //将needAutoLogin设置成1
-            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"needAutoLogin"];
+            UIAlertView *b = [[UIAlertView alloc]initWithTitle:@"登入失败"
+                                                       message:@"登录失败了。再是一次。"
+                                                      delegate:nil
+                                             cancelButtonTitle:@"重新登入"
+                                             otherButtonTitles: nil];
+            //将needAutoLogin设置成0，登陆失败
+            [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"needAutoLogin"];
+            [b show];
+        }
+    }else{
+        if (jsonContent.length > 0)
+        {
+            AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            SBJsonParser *pause = [[SBJsonParser alloc] init];
+            NSDictionary *dicData = [pause objectWithString:jsonContent];
+            NSDictionary *item = [dicData objectForKey:@"result"];
         }
     }
-    else
-    {
-        UIAlertView *b = [[UIAlertView alloc]initWithTitle:@"登入失败"
-                                                   message:@"登录失败了。再是一次。"
-                                                  delegate:nil
-                                         cancelButtonTitle:@"重新登入"
-                                         otherButtonTitles: nil];
-        //将needAutoLogin设置成0，登陆失败
-        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"needAutoLogin"];
-        [b show];
-    }
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -178,13 +205,13 @@ NSString * const KEY_PASSWORD = @"com.company.app.password";
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
