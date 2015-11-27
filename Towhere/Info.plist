@@ -2,11 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>wechat</string>
-		<string>weixin</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -14,13 +9,21 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
-	<string>lcon.png</string>
+	<string>57x57.png</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>lcon.png</string>
-		<string>lcon-Small.png</string>
-		<string>lcon-Small@2x.png</string>
-		<string>Lcon@2x.png</string>
+		<string>144x144.png</string>
+		<string>120x120.png</string>
+		<string>114x114.png</string>
+		<string>100x100.png</string>
+		<string>80x80.png</string>
+		<string>72x72.png</string>
+		<string>120x120.png</string>
+		<string>40x40.png</string>
+		<string>57x57.png</string>
+		<string>29x29.png</string>
+		<string>50x50.png</string>
+		<string>60x60.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
@@ -56,7 +59,12 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.1</string>
+	<string>1.1.1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>wechat</string>
+		<string>weixin</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

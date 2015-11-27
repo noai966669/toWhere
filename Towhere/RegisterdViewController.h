@@ -23,6 +23,8 @@
 -(IBAction)registerd:(id)sender;        //注册。
 -(IBAction)agreement:(id)sender;        //协议。
 
+-(IBAction)close:(id)sender;            //关闭键盘。
+
 @property (nonatomic , strong) University *university;
 
 @end

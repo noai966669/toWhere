@@ -101,7 +101,9 @@
 
 -(IBAction)query:(id)sender{
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSString *strPageUrl = [NSString stringWithFormat:@"http://api.ickd.cn/?id=112019&secret=9782958124314b20176452f95c11f731&com=%@&nu=%@&type=&encode=&ord=&lang=",appDelegate.code,number.text];
+    NSString *strPageUrl = [NSString stringWithFormat:@"http://api.ickd.cn/?id=109518&secret=5f2aa55ec2c2f3ccd2c6d5fb1b57b12c&com=%@&nu=%@&type=&encode=&ord=&lang=",appDelegate.code,number.text];
+    
+    NSLog(@"http://api.ickd.cn/?id=109518&secret=5f2aa55ec2c2f3ccd2c6d5fb1b57b12c&com=%@&nu=%@&type=&encode=&ord=&lang=",appDelegate.code,number.text);
     
     HttpClient *http = [HttpClient httpClientWithDelegate:self];
     http.needTipsNetError = YES;
@@ -110,7 +112,7 @@
 
 -(void)loadDataFromNet{
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSString *strPageUrl = [NSString stringWithFormat:@"http://api.ickd.cn/?id=112019&secret=9782958124314b20176452f95c11f731&com=%@&nu=%@&type=&encode=&ord=&lang=",appDelegate.code,number.text];
+    NSString *strPageUrl = [NSString stringWithFormat:@"http://api.ickd.cn/?id=109518&secret=5f2aa55ec2c2f3ccd2c6d5fb1b57b12c&com=%@&nu=%@&type=&encode=&ord=&lang=",appDelegate.code,number.text];
     
     HttpClient *http = [HttpClient httpClientWithDelegate:self];
     http.needTipsNetError = YES;

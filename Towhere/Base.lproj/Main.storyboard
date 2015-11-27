@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -581,7 +581,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gBC-W6-gs2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2643.5" y="314.5"/>
+            <point key="canvasLocation" x="2550.5" y="348.5"/>
         </scene>
         <!--Receive Detail View Controller-->
         <scene sceneID="nNc-Cy-7Kt">
@@ -4002,6 +4002,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aee-ku-Gsr">
+                                <rect key="frame" x="-4" y="59" width="383" height="608"/>
+                                <connections>
+                                    <action selector="close:" destination="Wxh-Cj-rsq" eventType="touchUpInside" id="0DT-xW-NWt"/>
+                                </connections>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="64" image="button2-1.png" translatesAutoresizingMaskIntoConstraints="NO" id="LcF-Ov-UnT">
                                 <rect key="frame" x="-6" y="-8" width="387" height="64"/>
                                 <constraints>
@@ -4136,13 +4142,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="aee-ku-Gsr" firstAttribute="top" secondItem="cFk-Vl-aGA" secondAttribute="bottom" constant="39" id="53q-pF-0ua"/>
                             <constraint firstAttribute="centerX" secondItem="akU-fE-hjk" secondAttribute="centerX" id="5Gj-Jm-vvB"/>
                             <constraint firstItem="bGP-KJ-zwY" firstAttribute="top" secondItem="cFk-Vl-aGA" secondAttribute="bottom" constant="281" id="8Jb-2z-b8O"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LcF-Ov-UnT" secondAttribute="trailing" constant="-22" id="Djm-kD-dSR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aee-ku-Gsr" secondAttribute="trailing" constant="-20" id="KqZ-6P-AXj"/>
                             <constraint firstAttribute="centerX" secondItem="bGP-KJ-zwY" secondAttribute="centerX" id="UgH-hY-eyq"/>
+                            <constraint firstItem="eC6-iD-RXY" firstAttribute="top" secondItem="aee-ku-Gsr" secondAttribute="bottom" id="V7J-DK-y3Z"/>
                             <constraint firstItem="akU-fE-hjk" firstAttribute="top" secondItem="cFk-Vl-aGA" secondAttribute="bottom" constant="8" id="beu-0U-eWE"/>
                             <constraint firstItem="LcF-Ov-UnT" firstAttribute="top" secondItem="O2e-5g-33t" secondAttribute="topMargin" constant="-8" id="jR1-pS-KXI"/>
                             <constraint firstItem="LcF-Ov-UnT" firstAttribute="leading" secondItem="O2e-5g-33t" secondAttribute="leadingMargin" constant="-22" id="kaq-A5-jQq"/>
+                            <constraint firstItem="aee-ku-Gsr" firstAttribute="leading" secondItem="O2e-5g-33t" secondAttribute="leadingMargin" constant="-20" id="mK4-U3-xHh"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -4386,10 +4396,10 @@
         <image name="编辑1.png" width="330" height="90"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="6ko-o2-zOa"/>
         <segue reference="c4W-Dt-8de"/>
-        <segue reference="3YD-yX-7AF"/>
-        <segue reference="Z5m-h4-K9g"/>
+        <segue reference="i9p-9i-oAm"/>
         <segue reference="Ojy-28-NXT"/>
-        <segue reference="TBu-oe-pjl"/>
+        <segue reference="PLo-eY-HFD"/>
     </inferredMetricsTieBreakers>
 </document>

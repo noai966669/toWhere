@@ -80,6 +80,13 @@
 //    }
 }
 
+-(IBAction)close:(id)sender{
+    [name resignFirstResponder];
+    [iphone resignFirstResponder];
+    [password resignFirstResponder];
+    [verification resignFirstResponder];
+}
+
 -(IBAction)back:(id)sender{
     UIViewController *next = [[self storyboard]instantiateViewControllerWithIdentifier:@"ViewController"];
     [self presentViewController:next animated:NO completion:nil];

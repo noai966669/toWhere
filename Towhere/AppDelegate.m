@@ -136,6 +136,9 @@
     [XGPush handleLaunching:launchOptions successCallback:successBlock errorCallback:errorBlock];
     
     
+    [NSThread sleepForTimeInterval:3.0];
+    [_window makeKeyAndVisible];
+    
     return YES;
 }
 

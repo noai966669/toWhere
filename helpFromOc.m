@@ -16,7 +16,7 @@
 @implementation helpFromOc
 @synthesize number;
 -(void)loadDataFromNetBycodeAndNumber:(NSString *)code :(NSString*)number{
-    NSString *strPageUrl = [NSString stringWithFormat:@"http://api.ickd.cn/?id=112019&secret=9782958124314b20176452f95c11f731&com=%@&nu=%@&type=&encode=&ord=&lang=",code,number];
+    NSString *strPageUrl = [NSString stringWithFormat:@"http://api.ickd.cn/?id=109518&secret=5f2aa55ec2c2f3ccd2c6d5fb1b57b12c&com=%@&nu=%@&type=&encode=&ord=&lang=",code,number];
     self.number=number;
     HttpClient *http = [HttpClient httpClientWithDelegate:self];
     http.needTipsNetError = YES;
