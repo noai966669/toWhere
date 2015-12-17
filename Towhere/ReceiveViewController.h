@@ -24,7 +24,8 @@
 @property (nonatomic , strong) ReceiveDetailViewController *myReceiveDetailViewController;
 @property (nonatomic , strong) IBOutlet UITableView *tableView1;
 @property (nonatomic , retain) NSMutableArray *mutarrDataList;
-
+//+(void)setIsCheckVersion:(BOOL)isCheckVersion;
+//+(BOOL)getIsCheckVersion;
 @property(nonatomic, strong) ICSDrawerController *drawer;
 @end
     

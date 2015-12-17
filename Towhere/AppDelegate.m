@@ -72,7 +72,27 @@
 @synthesize edit2;
 @synthesize cellhight;
 @synthesize password;
-
++ (void)redirectNSlogToDocumentFolder
+{
+    
+    NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"log"];
+    BOOL bo = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    NSAssert(bo,@"创建目录失败");
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [[paths objectAtIndex:0] stringByAppendingString:@"/log/"];
+    NSDate *now=[[NSDate alloc] init];
+    NSDateFormatter *formtter1=[[NSDateFormatter alloc] init];
+    [formtter1 setDateFormat:@"yyyy-MM-ddHH:mm:ss"];  //HH时24小时进制的   hh是12小时制度的
+    NSString *nsdatenow=[formtter1 stringFromDate:now];
+    NSString *fileName = [NSString stringWithFormat:@"%@.log",nsdatenow];// 注意不是NSData!
+    NSString *logFilePath = [documentDirectory stringByAppendingPathComponent:fileName];
+    // 先删除已经存在的文件
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    [defaultManager removeItemAtPath:logFilePath error:nil];
+    // 将log输入到文件
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
@@ -81,7 +101,7 @@
               withSecret:appSecret1];
     //    创建数据库
     [DatabaseDelivery createDataBasedeliveryHistroy];
-    
+//    [AppDelegate redirectNSlogToDocumentFolder];
     //友盟初始化
     [UMSocialData setAppKey:@"5640c788e0f55a42040048bd"];
 //    wx分享初始化
@@ -163,6 +183,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    application.applicationIconBadgeNumber=0;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

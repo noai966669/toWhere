@@ -2327,7 +2327,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.daxiang.toWhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4a156f74-add3-4292-b7b5-8f0f1576aa3f";
 				SWIFT_OBJC_BRIDGING_HEADER = "Towhere-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7s armv7";
@@ -2364,10 +2364,11 @@
 					"$(PROJECT_DIR)/UMSocial_Sdk_4.3/Wechat",
 					"$(PROJECT_DIR)/TencentOpenAPI",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.daxiang.toWhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cf107a60-acbb-4689-8fa6-d26c053dee49";
 				SWIFT_OBJC_BRIDGING_HEADER = "Towhere-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};

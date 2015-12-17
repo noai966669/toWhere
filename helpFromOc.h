@@ -23,4 +23,5 @@
 @property (nonatomic , retain) NSMutableArray *mutarrDataList;
 @property (nonatomic , retain) NSString *number;
 -(void)loadDataFromNetBycodeAndNumber:(NSString *)code :(NSString*)number;
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 @end
