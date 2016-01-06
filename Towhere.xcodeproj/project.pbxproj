@@ -1824,7 +1824,7 @@
 				TargetAttributes = {
 					18DF71781B56337B00F324C1 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = ZM7596U25B;
+						DevelopmentTeam = 44CTB8JNAM;
 					};
 					18DF71911B56337B00F324C1 = {
 						CreatedOnToolsVersion = 6.4;
@@ -2325,7 +2325,7 @@
 					"$(PROJECT_DIR)/TencentOpenAPI",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.daxiang.toWhere;
+				PRODUCT_BUNDLE_IDENTIFIER = com.suda.toWhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4a156f74-add3-4292-b7b5-8f0f1576aa3f";
 				SWIFT_OBJC_BRIDGING_HEADER = "Towhere-Bridging-Header.h";
@@ -2366,9 +2366,9 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.daxiang.toWhere;
+				PRODUCT_BUNDLE_IDENTIFIER = com.suda.toWhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cf107a60-acbb-4689-8fa6-d26c053dee49";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Towhere-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};

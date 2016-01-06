@@ -18,7 +18,7 @@
 #import "MJRefresh.h"
 @interface ReceiveViewController (){
     int a;
-    bool isCheckVersion;
+//    int isCheckVersion;
 }
 @property (strong, nonatomic) IBOutlet UIButton *portraitImageView;
 
@@ -52,9 +52,11 @@
         [self loadDataFromNet];
         [tableView1.header endRefreshing];
     }];
-    isCheckVersion=false;
+    if (appDelegate.isCheckVersion){
+        [self checkNewVersion];
+    }else{
         [self loadDataFromNet];
-//    [self checkNewVersion];
+    }
 }
 
 //tableview长度。
@@ -151,9 +153,9 @@
 
 - (void)decodingJson:(NSString *)jsonContent
 {
-    
-    if  (self->isCheckVersion){
-        self->isCheckVersion=false;
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    if  (appDelegate.isCheckVersion){
+        appDelegate.isCheckVersion=false;
         SBJsonParser *pause = [[SBJsonParser alloc] init];
 //        NSDictionary *dicData =  [helpFromOc dictionaryWithJsonString:jsonContent];
         NSDictionary *dicData = [pause objectWithString:jsonContent];
@@ -167,9 +169,9 @@
             id item2 = [array objectAtIndex:0];
             NSString *version=[item2 objectForKey:@"version"];
             NSString *newCharacters=[item2 objectForKey:@"newCharacters"];
-            NSString *aCFBundleVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
-            NSLog(@"%@%@",version,newCharacters);
-            if (version != aCFBundleVersion){
+            NSString *aCFBundleShortVersionString = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
+            NSLog(@"%@%@%@",version,newCharacters,aCFBundleShortVersionString);
+            if (![version isEqual: aCFBundleShortVersionString]){
                 UIAlertView *aUIAlertView = [[UIAlertView alloc]initWithTitle:@"发现新版本"
                                                                       message:newCharacters
                                                                      delegate:self
@@ -179,7 +181,7 @@
                 [aUIAlertView show];
             }
         }
-//        [self loadDataFromNet];
+        [self loadDataFromNet];
     }else{
         NSLog(@"%@",jsonContent);
         if (jsonContent.length > 0&& a != 1 )
@@ -207,8 +209,6 @@
             }
             [self.tableView1 reloadData];
         }
-        self->isCheckVersion=true;
-        [self checkNewVersion];
     }
 }
 

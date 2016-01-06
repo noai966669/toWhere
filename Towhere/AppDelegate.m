@@ -28,6 +28,7 @@
 @end
 
 @implementation AppDelegate
+@synthesize isCheckVersion;
 @synthesize deviceTokenStr;
 @synthesize token;
 @synthesize waitsendID;
@@ -95,7 +96,7 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    isCheckVersion=true;
     //初始化应用，appKey和appSecret从后台申请得到
     [SMS_SDK registerApp:appKey1
               withSecret:appSecret1];

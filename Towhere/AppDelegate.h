@@ -11,6 +11,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate,DataLoadStateDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property BOOL isCheckVersion;
 @property (nonatomic , retain) NSString *deviceTokenStr;       //设备token。
 @property (nonatomic , retain) NSString *token;       //区分不同用户的标准。
 @property (nonatomic , retain) NSString *waitsendID;  //待寄快递信息ID。
